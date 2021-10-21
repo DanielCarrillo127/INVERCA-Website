@@ -343,7 +343,15 @@ body {
 .contact {
   padding: 100px 0;
   background: #23263a;
+
 }
+.contact2 {
+  padding: 100px 0;
+  background: #1f2235;
+
+}
+
+
 .contactSection-logo {
   text-align: center;
   margin-bottom: 20px;
@@ -377,6 +385,12 @@ body {
   transition: all 0.5s linear;
   cursor: pointer;
 }
+
+.aclass {
+  text-decoration: none;
+  color: #fff;
+}
+
 .contactCircles li:hover {
   background: #B5D43C;
 }
@@ -393,6 +407,7 @@ body {
   align-items: center;
   justify-content: center;
   display: none;
+  
 }
 @media (max-width: 765px) {
   .container {

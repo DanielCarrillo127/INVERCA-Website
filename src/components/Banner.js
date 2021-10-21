@@ -21,13 +21,19 @@ const Banner = () => {
               <div className="header__section">
                 <ul className="header__ul">
                   <li>
-                    <FaFacebookF className="headerIcon" />
+                    <a className='aclass' href='https://www.facebook.com/coomsocial.org' alt='FacebookUrl'>
+                      <FaFacebookF className="headerIcon" />
+                    </a>
                   </li>
                   <li>
-                    <FaTwitter className="headerIcon" />
+                    <a className='aclass' href='https://twitter.com/coomsocial' alt='TwitterUrl'>
+                      <FaTwitter className="headerIcon" />
+                    </a>
                   </li>
                   <li>
-                    <FaInstagram className="headerIcon" />
+                    <a className='aclass' href='https://www.instagram.com/inverca1998/' alt='InstaUrl'>
+                      <FaInstagram className="headerIcon" />
+                    </a>
                   </li>
                 </ul>
                 <h1>{state.title}</h1>

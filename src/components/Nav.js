@@ -1,11 +1,12 @@
 import React from "react";
 import { FaAlignJustify } from "react-icons/fa";
-import {Link} from 'react-scroll';
-import {animateScroll as scroll} from 'react-scroll';
+import { Link } from 'react-scroll';
+import { animateScroll as scroll } from 'react-scroll';
+
 
 
 const Nav = () => {
-  
+
   const [state, setState] = React.useState(true);
 
   return (
@@ -15,11 +16,11 @@ const Nav = () => {
           <ul className="navbar__left">
             <div className='container_name'>
               <Link onClick={() => scroll.scrollToTop()}>
-              <img src="/images/logo.png" width='50' height='35'  alt="logo" /> INVERCA
+                <img src="/images/logo.png" width='50' height='35' alt="logo" /> INVERCA
               </Link>
             </div>
           </ul>
-          {state ? (
+          { state === true ? (
             <ul className="navbar__right">
               <li>
                 <Link to="header" smooth={true} duration={1000} >Inicio</Link>
@@ -42,8 +43,7 @@ const Nav = () => {
           )}
         </div>
       </div>
-      {/* PULIRLO O CAMBIARLO */}
-      <div className="toggle" onClick={() => setState(!state)}> 
+      <div className="toggle" onClick={() => setState(!state)}>
         <FaAlignJustify />
       </div>
     </nav>
