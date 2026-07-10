@@ -1,24 +1,15 @@
 import React from "react";
+import { Switch, Route } from "react-router-dom";
 import "./App.css";
-import Banner from "./components/Banner";
-import Nav from "./components/Nav";
-import Services from "./components/Services";
-import About from "./components/About";
-import Prices from "./components/Prices";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
+import Home from "./components/Home";
+import RegistroPage from "./components/RegistroPage";
 
 function App() {
   return (
-    <div>
-      <Banner />
-      <Nav />
-      <Services />
-      <About />
-      <Prices />
-      <Contact />
-      <Footer />
-    </div>
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route path="/registro" component={RegistroPage} />
+    </Switch>
   );
 }
 

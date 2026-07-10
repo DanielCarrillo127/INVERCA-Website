@@ -1,50 +1,56 @@
 import React from "react";
-import { FaAlignJustify } from "react-icons/fa";
-import { Link } from 'react-scroll';
-import { animateScroll as scroll } from 'react-scroll';
+import { FaBars, FaTimes } from "react-icons/fa";
+import { Link, animateScroll as scroll } from "react-scroll";
+import { Link as RouterLink } from "react-router-dom";
 
-
+const links = [
+  { to: "hero", label: "Inicio" },
+  { to: "services", label: "Servicios" },
+  { to: "stats", label: "Logros" },
+  { to: "how", label: "Cómo Funciona" },
+  { to: "footer", label: "Contacto" },
+];
 
 const Nav = () => {
-
-  const [state, setState] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
+  const close = () => setOpen(false);
 
   return (
     <nav className="navbar">
-      <div className="container">
-        <div className="navbar__container">
-          <ul className="navbar__left">
-            <div className='container_name'>
-              <Link onClick={() => scroll.scrollToTop()}>
-                <img src="/images/logo.png" width='50' height='35' alt="logo" /> INVERCA
-              </Link>
-            </div>
-          </ul>
-          { state === true ? (
-            <ul className="navbar__right">
-              <li>
-                <Link to="header" smooth={true} duration={1000} >Inicio</Link>
-              </li>
-              <li>
-                <Link to="services" smooth={true} duration={1000} >Servicios</Link>
-              </li>
-              <li>
-                <Link to="about" smooth={true} duration={1000} >Conocenos</Link>
-              </li>
-              <li>
-                <Link to="prices" smooth={true} duration={1000} >Portafolio</Link>
-              </li>
-              <li>
-                <Link to="contact" smooth={true} duration={1000}>Contactanos</Link>
-              </li>
-            </ul>
-          ) : (
-            ""
-          )}
+      <div className="container navbar__container">
+        <div
+          className="navbar__brand"
+          onClick={() => {
+            scroll.scrollToTop();
+            close();
+          }}
+        >
+          <img src="/images/coomsocial-isotipo.png" alt="COOMSOCIAL" />
+          <span>COOMSOCIAL</span>
         </div>
-      </div>
-      <div className="toggle" onClick={() => setState(!state)}>
-        <FaAlignJustify />
+
+        <ul className={open ? "navbar__links navbar__links--open" : "navbar__links"}>
+          {links.map((l) => (
+            <li key={l.to}>
+              <Link to={l.to} smooth={true} duration={700} offset={-90} onClick={close}>
+                {l.label}
+              </Link>
+            </li>
+          ))}
+          <li className="navbar__links-cta">
+            <RouterLink className="btn btn-ghost" to="/registro" onClick={close}>
+              Únete Ahora
+            </RouterLink>
+          </li>
+        </ul>
+
+        <button
+          className="navbar__toggle"
+          aria-label="Menú"
+          onClick={() => setOpen(!open)}
+        >
+          {open ? <FaTimes /> : <FaBars />}
+        </button>
       </div>
     </nav>
   );
