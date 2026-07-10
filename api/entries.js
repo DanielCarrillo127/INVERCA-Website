@@ -60,6 +60,8 @@ function validate(body) {
     const d = new Date(body.fechaNacimiento);
     if (isNaN(d.getTime()) || d > new Date()) errors.fechaNacimiento = "Fecha no válida.";
   }
+  if (body.liderPolitico && !/^\d{5,12}$/.test(String(body.liderPolitico).trim()))
+    errors.liderPolitico = "Cédula de líder no válida.";
   return errors;
 }
 
@@ -89,6 +91,7 @@ module.exports = async function handler(req, res) {
       departamento: String(body.departamento).trim(),
       municipio: String(body.municipio).trim(),
       sectorEconomico: String(body.sectorEconomico).trim(),
+      liderPolitico: String(body.liderPolitico || "").trim(),
       createdAt: new Date(),
     };
 

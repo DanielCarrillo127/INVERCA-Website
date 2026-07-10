@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import {
   FaUser,
   FaUserTag,
@@ -10,6 +11,7 @@ import {
   FaMapMarkedAlt,
   FaCity,
   FaBriefcase,
+  FaUserShield,
   FaInfoCircle,
   FaExclamationCircle,
   FaCheckCircle,
@@ -41,6 +43,7 @@ const initialForm = {
   departamento: "",
   municipio: "",
   sectorEconomico: "",
+  liderPolitico: "",
 };
 
 // Edad (años completos) a partir de un objeto Date.
@@ -126,6 +129,13 @@ const validators = {
   departamento: (v) => (!v ? "Selecciona un departamento." : ""),
   municipio: (v) => (!v ? "Selecciona un municipio." : ""),
   sectorEconomico: (v) => (!v ? "Selecciona un sector económico." : ""),
+  // Opcional: solo valida formato si se ingresa algo.
+  liderPolitico: (v) =>
+    !v.trim()
+      ? ""
+      : !/^\d{5,12}$/.test(v.trim())
+      ? "La cédula del líder debe tener entre 5 y 12 dígitos."
+      : "",
 };
 
 // Wrapper de campo (icono + input + mensaje de error accesible).
@@ -160,9 +170,19 @@ const RegistrationForm = ({ light = false }) => {
   const [touched, setTouched] = React.useState({});
   const [status, setStatus] = React.useState({ state: "idle", message: "" });
   const successTimer = React.useRef(null);
+  const location = useLocation();
 
   // Limpia el temporizador si el componente se desmonta.
   React.useEffect(() => () => clearTimeout(successTimer.current), []);
+
+  // Prellena la cédula del líder político desde ?leaderid= en la URL.
+  React.useEffect(() => {
+    const leader = new URLSearchParams(location.search).get("leaderid");
+    if (leader) {
+      const clean = leader.replace(/\D/g, "").slice(0, 12);
+      if (clean) setForm((prev) => ({ ...prev, liderPolitico: clean }));
+    }
+  }, [location.search]);
 
   const municipios = React.useMemo(
     () => municipiosDe(form.departamento),
@@ -442,6 +462,19 @@ const RegistrationForm = ({ light = false }) => {
                   </option>
                 ))}
               </select>
+            </Field>
+
+            <Field icon={<FaUserShield />} {...fieldState("liderPolitico")} full>
+              <input
+                type="text"
+                inputMode="numeric"
+                name="liderPolitico"
+                placeholder="Cédula del líder (opcional)"
+                value={form.liderPolitico}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                maxLength={12}
+              />
             </Field>
           </div>
 
