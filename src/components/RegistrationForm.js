@@ -175,14 +175,17 @@ const RegistrationForm = ({ light = false }) => {
   // Limpia el temporizador si el componente se desmonta.
   React.useEffect(() => () => clearTimeout(successTimer.current), []);
 
-  // Prellena la cédula del líder político desde ?leaderid= en la URL.
-  React.useEffect(() => {
-    const leader = new URLSearchParams(location.search).get("leaderid");
-    if (leader) {
-      const clean = leader.replace(/\D/g, "").slice(0, 12);
-      if (clean) setForm((prev) => ({ ...prev, liderPolitico: clean }));
-    }
+  // Cédula del líder político tomada de ?leaderid= en la URL (solo dígitos).
+  const leaderFromUrl = React.useMemo(() => {
+    const raw = new URLSearchParams(location.search).get("leaderid");
+    return raw ? raw.replace(/\D/g, "").slice(0, 12) : "";
   }, [location.search]);
+
+  // Prellena el campo del líder cuando el param existe.
+  React.useEffect(() => {
+    if (leaderFromUrl)
+      setForm((prev) => ({ ...prev, liderPolitico: leaderFromUrl }));
+  }, [leaderFromUrl]);
 
   const municipios = React.useMemo(
     () => municipiosDe(form.departamento),
@@ -260,7 +263,8 @@ const RegistrationForm = ({ light = false }) => {
         state: "success",
         message: "¡Registro exitoso! Pronto nos pondremos en contacto contigo.",
       });
-      setForm(initialForm);
+      // Al limpiar, se conserva el líder si vino en la URL (?leaderid=).
+      setForm({ ...initialForm, liderPolitico: leaderFromUrl });
       setTouched({});
       setErrors({});
       // El mensaje de éxito desaparece solo a los 6 segundos.
