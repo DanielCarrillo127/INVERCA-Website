@@ -1,85 +1,93 @@
 import React from "react";
-import { FcMultipleDevices,FcPhoneAndroid,FcHome,FcShop,FcBullish,FcLandscape } from "react-icons/fc";
+import {
+  FaBirthdayCake,
+  FaGraduationCap,
+  FaBriefcase,
+  FaChartLine,
+  FaMobileAlt,
+  FaHeartbeat,
+} from "react-icons/fa";
+
+const services = [
+  {
+    id: 1,
+    color: "pink",
+    icon: <FaBirthdayCake />,
+    heading: "Celebración de Cumpleaños",
+    text: "Organizamos tu celebración para que sea inolvidable. Desde $80.000.",
+    tag: "Ahorra automáticamente para tu cumpleaños",
+  },
+  {
+    id: 2,
+    color: "blue",
+    icon: <FaGraduationCap />,
+    heading: "Escuela de Talentos",
+    text: "Desarrolla tus habilidades y monetízalas con cursos certificados.",
+    tag: "Crea y vende tus propios cursos",
+  },
+  {
+    id: 3,
+    color: "purple",
+    icon: <FaBriefcase />,
+    heading: "Oportunidades Laborales",
+    text: "Plan B: conectamos tu talento con el mercado laboral.",
+    tag: "Encuentra trabajo o publica ofertas",
+  },
+  {
+    id: 4,
+    color: "teal",
+    icon: <FaChartLine />,
+    heading: "Potencia tu Negocio",
+    text: "Transformamos y formalizamos tu emprendimiento.",
+    tag: "Asesoría profesional para crecer",
+  },
+  {
+    id: 5,
+    color: "orange",
+    icon: <FaMobileAlt />,
+    heading: "Pégate a lo Social",
+    text: "Gana dinero con TikTok, Instagram y redes sociales.",
+    tag: "Monetiza tu contenido digital",
+  },
+  {
+    id: 6,
+    color: "green",
+    icon: <FaHeartbeat />,
+    heading: "Auditoría en Salud",
+    text: "Accede al fondo solidario y gestiona tu salud.",
+    tag: "Fondo de medicamentos disponible",
+  },
+];
+
 const Services = () => {
-  
-  const [header] = React.useState({
-    mainHeader: "SERVICIOS",
-    subHeading: "Nuestros Servicios",
-    text:
-      "Tenemos un conjunto servicios pensados especialmente para ti, enfocados en las necesidades sociales actiuales y las oportunidades de negocios del momento",
-  });
-
-  const [state] = React.useState([
-    {
-      id: 1,
-      icon: <FcMultipleDevices className="commonIcons" />,
-      heading: "Desarrollo Web",
-      text:
-        "Gestionamos, desarrollamos e implementamos recursos  Web para pequeñas y medianas empresas.",
-    },
-    {
-      id: 2,
-      icon: <FcHome className="commonIcons" />,
-      heading: "Servicio Inmobiliario",
-      text:
-        "Brindamos la oferta de bienes raíces, propias o brindamos enlaces accesibles con terceros. ",
-    },
-    {
-      id: 3,
-      icon: <FcShop className="commonIcons" />,
-      heading: "red de negocios",
-      text:
-        "Unificamos a nuestros asociados para generar una red autosuficiente que genere ventajas en el mercado.",
-    },
-    {
-      id: 4,
-      icon: <FcPhoneAndroid className="commonIcons" />,
-      heading: "Desarrollo Móvil",
-      text:
-        "Desarrollamos app's y ponemos en marcha tu idea de negocio digital, justo en la palma de tu mano.",
-    },
-    {
-      id: 5,
-      icon: <FcBullish className="commonIcons" />,
-      heading: "Marketing Empresarial",
-      text:
-        "Te ayudamos a construir una imagen fuerte de tu marca y estrechar tus relaciones con los clientes.",
-    },
-    {
-      id: 6,
-      icon: <FcLandscape className="commonIcons" />,
-      heading: "proyectos de turismo",
-      text:
-        "Creamos herramientas digitales de la mano del sector publico-privado para dinamizar  el turismo y la economia.",
-    },
-  ]);
   return (
-    <div className="services" id='services'>
+    <section className="services" id="services">
       <div className="container">
-        <div className="services__header">
-          <div className="common">
-            <h3 className="heading">{header.mainHeader}</h3>
-            <h1 className="mainHeader">{header.subHeading}</h1>
-            <p className="mainContent">{header.text}</p>
-            <div className="commonBorder"></div>
-          </div>
+        <div className="section__head">
+          <h2 className="section__title">Nuestros Servicios</h2>
+          <p className="section__subtitle">
+            Un ecosistema completo diseñado para tu crecimiento personal,
+            profesional y económico.
+          </p>
+        </div>
 
-          <div className="row bgMain">
-
-            {state.map((info) => (
-              <div className="col-4 bgMain">
-                <div className="services__box">
-                  {info.icon}
-                  <div className="services__box-header">{info.heading}</div>
-                  <div className="services__box-p">{info.text}</div>
-                </div>
+        <div className="services__grid">
+          {services.map((s) => (
+            <article className={`card card--${s.color}`} key={s.id}>
+              <div className={`card__icon card__icon--${s.color}`}>{s.icon}</div>
+              <h3 className="card__title">{s.heading}</h3>
+              <p className="card__text">{s.text}</p>
+              <div className="card__tag">
+                <span role="img" aria-label="destello">✨</span> {s.tag}
               </div>
-            ))}
-
-          </div>
+              <a className={`card__link card__link--${s.color}`} href="https://wa.me/573157523121">
+                Conocer ahora →
+              </a>
+            </article>
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

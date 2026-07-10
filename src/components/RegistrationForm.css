@@ -1,0 +1,291 @@
+/* ================= Registro de usuarios ================= */
+.registro {
+  padding: 100px 0;
+  background: var(--bg-alt);
+}
+
+.rf-card {
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.rf-title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 30px;
+}
+
+.rf-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 20px;
+}
+
+.rf-field {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.rf-field--full {
+  grid-column: 1 / -1;
+}
+
+/* ---- Control (icono + input) ---- */
+.rf-control {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.rf-control:focus-within {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(23, 164, 95, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.rf-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted-2);
+  font-size: 17px;
+  padding: 0 12px 0 15px;
+  flex-shrink: 0;
+}
+.rf-control:focus-within .rf-icon {
+  color: var(--green);
+}
+
+.rf-control input,
+.rf-control select {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--text);
+  padding: 15px 14px 15px 0;
+}
+.rf-control input::placeholder {
+  color: var(--muted-2);
+}
+
+/* Selects */
+.rf-control select {
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237f869c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 38px;
+}
+.rf-control select.rf-placeholder {
+  color: var(--muted-2);
+}
+.rf-control select:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+.rf-control select option {
+  color: #111;
+  background: #fff;
+}
+
+/* El nativo date muestra su propio texto; se colorea el placeholder */
+.rf-control input[type="date"].rf-placeholder {
+  color: var(--muted-2);
+}
+.rf-control input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.6);
+  cursor: pointer;
+}
+
+/* Info tooltip */
+.rf-hint {
+  display: flex;
+  align-items: center;
+  color: var(--muted-2);
+  padding: 0 14px;
+  cursor: help;
+  flex-shrink: 0;
+}
+.rf-hint:hover {
+  color: var(--text);
+}
+
+/* ---- Estado de error ---- */
+.rf-field--error .rf-control {
+  border-color: #f0568a;
+  background: rgba(240, 86, 138, 0.06);
+}
+.rf-field--error .rf-icon {
+  color: #f0568a;
+}
+.rf-error {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 12.5px;
+  color: #ff789f;
+  line-height: 1.3;
+}
+.rf-error svg {
+  flex-shrink: 0;
+}
+
+/* ---- Banner de estado ---- */
+.rf-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.rf-banner--success {
+  background: rgba(23, 164, 95, 0.14);
+  border: 1px solid rgba(63, 208, 127, 0.4);
+  color: var(--green-light);
+}
+.rf-banner--error {
+  background: rgba(240, 86, 138, 0.12);
+  border: 1px solid rgba(240, 86, 138, 0.4);
+  color: #ff789f;
+}
+.rf-banner svg {
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+/* ---- Botón submit ---- */
+.rf-submit {
+  width: 100%;
+  margin-top: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--green);
+  border: none;
+  border-radius: 50px;
+  padding: 16px;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(23, 164, 95, 0.35);
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+.rf-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: #148f52;
+}
+.rf-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.rf-spin {
+  animation: rf-rotate 0.8s linear infinite;
+}
+@keyframes rf-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ================= Variante clara (form de fondo blanco) ================= */
+.registro--light {
+  background: transparent;
+  padding: 0;
+}
+.registro--light .rf-card {
+  background: #ffffff;
+  border: 1px solid #e6e9f0;
+  box-shadow: 0 24px 60px rgba(20, 30, 60, 0.12);
+}
+.registro--light .rf-title {
+  color: #1c2333;
+}
+.registro--light .rf-control {
+  background: #f7f8fb;
+  border-color: #dfe3ec;
+}
+.registro--light .rf-control:focus-within {
+  background: #fff;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(23, 164, 95, 0.15);
+}
+.registro--light .rf-icon {
+  color: #9aa2b5;
+}
+.registro--light .rf-control:focus-within .rf-icon {
+  color: var(--green);
+}
+.registro--light .rf-control input,
+.registro--light .rf-control select {
+  color: #1c2333;
+}
+.registro--light .rf-control input::placeholder,
+.registro--light .rf-control select.rf-placeholder,
+.registro--light .rf-control input[type="date"].rf-placeholder {
+  color: #9aa2b5;
+}
+.registro--light .rf-hint {
+  color: #9aa2b5;
+}
+.registro--light .rf-hint:hover {
+  color: #1c2333;
+}
+/* El icono del datepicker vuelve a su color natural sobre fondo claro */
+.registro--light .rf-control input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: none;
+}
+/* Estado de error en claro */
+.registro--light .rf-field--error .rf-control {
+  border-color: #e04371;
+  background: rgba(224, 67, 113, 0.05);
+}
+.registro--light .rf-field--error .rf-icon {
+  color: #e04371;
+}
+.registro--light .rf-error {
+  color: #d12a5e;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 620px) {
+  .registro {
+    padding: 70px 0;
+  }
+  .rf-card {
+    padding: 26px 20px;
+    border-radius: 14px;
+  }
+  .rf-title {
+    font-size: 24px;
+  }
+  .rf-grid {
+    grid-template-columns: 1fr;
+  }
+  .rf-field--full {
+    grid-column: auto;
+  }
+}

@@ -1,0 +1,75 @@
+/* ================= Página /registro (tema claro) ================= */
+.registro-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #eef2f9 0%, #e6ebf5 100%);
+  color: #1c2333;
+}
+
+/* Header propio de la página */
+.registro-page__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e2e6f0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.registro-page__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  color: #1c2333;
+  text-decoration: none;
+}
+.registro-page__brand img {
+  width: 42px;
+  height: auto;
+}
+.registro-page__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--green);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+.registro-page__back:hover {
+  background: rgba(23, 164, 95, 0.1);
+}
+
+/* Contenedor del formulario */
+.registro-page__main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px 64px;
+}
+.registro-page__main .container {
+  padding: 0;
+}
+
+@media (max-width: 620px) {
+  .registro-page__nav {
+    padding: 14px 18px;
+  }
+  .registro-page__brand span {
+    display: none;
+  }
+  .registro-page__main {
+    padding: 28px 16px 44px;
+  }
+}
