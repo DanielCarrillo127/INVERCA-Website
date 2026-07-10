@@ -3,42 +3,7 @@
 //  Ruta pública: POST /api/entries   (mismo dominio que el front)
 //  Vercel ejecuta este archivo como Serverless Function; NO uses app.listen.
 // ============================================================
-const { MongoClient } = require("mongodb");
-
-const {
-  MONGODB_URI,
-  DB_NAME = "coomsocial",
-  COLLECTION_NAME = "entries",
-} = process.env;
-
-// --- Conexión cacheada entre invocaciones (evita agotar conexiones) ---
-let cached = global._mongo;
-if (!cached) cached = global._mongo = { client: null, promise: null };
-
-async function getCollection() {
-  if (!MONGODB_URI) throw new Error("Falta MONGODB_URI en las variables de entorno.");
-  if (!cached.promise) {
-    cached.promise = new MongoClient(MONGODB_URI)
-      .connect()
-      .then(async (client) => {
-        cached.client = client;
-        // El índice único se crea una sola vez (idempotente).
-        await client
-          .db(DB_NAME)
-          .collection(COLLECTION_NAME)
-          .createIndex({ cedula: 1 }, { unique: true })
-          .catch(() => {});
-        return client; // la promesa resuelve al CLIENT, no a la colección
-      })
-      .catch((err) => {
-        // No dejar una promesa rechazada cacheada (envenenaría las siguientes).
-        cached.promise = null;
-        throw err;
-      });
-  }
-  const client = await cached.promise;
-  return client.db(DB_NAME).collection(COLLECTION_NAME);
-}
+const { getCollection } = require("./_lib/mongo");
 
 // ---- Validación del lado del servidor (defensa en profundidad) ----
 const REQUIRED = [

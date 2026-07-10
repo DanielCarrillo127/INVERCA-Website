@@ -7,6 +7,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const { MongoClient } = require("mongodb");
+const gestor = require("../api/_lib/gestor");
 
 const {
   MONGODB_URI,
@@ -113,6 +114,38 @@ app.post("/api/entries", async (req, res) => {
     return res
       .status(500)
       .json({ message: "Error interno al guardar el registro." });
+  }
+});
+
+// ---------------- Panel /gestor (mismas funciones que en serverless) ----------------
+app.post("/api/gestor/login", (req, res) => {
+  const body = req.body || {};
+  if (!gestor.verifyCredentials(body.user, body.password))
+    return res.status(401).json({ message: "Usuario o contraseña incorrectos." });
+  return res.json({ token: gestor.signToken() });
+});
+
+app.get("/api/gestor/entries", async (req, res) => {
+  if (!gestor.requireAuth(req)) return res.status(401).json({ message: "No autorizado." });
+  try {
+    if (req.query.all === "1") {
+      const rows = await gestor.fetchAll(collection, req.query);
+      return res.json({ rows });
+    }
+    return res.json(await gestor.fetchEntries(collection, req.query));
+  } catch (err) {
+    console.error("✖ /gestor/entries:", err);
+    return res.status(500).json({ message: "Error al consultar los registros." });
+  }
+});
+
+app.get("/api/gestor/stats", async (req, res) => {
+  if (!gestor.requireAuth(req)) return res.status(401).json({ message: "No autorizado." });
+  try {
+    return res.json(await gestor.computeStats(collection));
+  } catch (err) {
+    console.error("✖ /gestor/stats:", err);
+    return res.status(500).json({ message: "Error al calcular estadísticas." });
   }
 });
 
