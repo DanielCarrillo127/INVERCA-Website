@@ -121,7 +121,6 @@ const validators = {
     if (!d) return "Formato inválido. Usa DD/MM/AAAA.";
     if (d > new Date()) return "La fecha no puede ser futura.";
     const age = calcAge(d);
-    if (age < 18) return "Debes ser mayor de 18 años.";
     if (age > 110) return "Verifica la fecha de nacimiento.";
     return "";
   },
