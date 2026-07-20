@@ -21,6 +21,8 @@ export const optionsEconomicSector = [
   { key: 20, label: "VESTIDOS", value: "VESTIDOS" },
   { key: 21, label: "SISTEMAS Y DESARROLLO TECNOLOGICO", value: "SISTEMAS Y DESARROLLO TECNOLOGICO" },
   { key: 22, label: "ESCUELA DE NUEVOS LIDERES POLITICOS", value: "ESCUELA DE NUEVOS LIDERES POLITICOS" },
+  { key: 23, label: "BELLEZA Y CUIDADO PERSONAL", value: "BELLEZA Y CUIDADO PERSONAL" },
+  { key: 24, label: "IA Y CONTENIDO DIGITAL", value: "IA Y CONTENIDO DIGITAL" },
 ];
 
 export const optionsSexo = [
